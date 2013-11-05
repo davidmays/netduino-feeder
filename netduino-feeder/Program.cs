@@ -7,8 +7,6 @@ using Microsoft.SPOT.Hardware;
 using SecretLabs.NETMF.Hardware;
 using SecretLabs.NETMF.Hardware.NetduinoPlus;
 
-using Servo_API;
-
 namespace NetduinoFeeder
 {
     public class Program
