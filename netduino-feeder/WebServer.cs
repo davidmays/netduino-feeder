@@ -166,7 +166,7 @@ namespace NetduinoFeeder
                 "<title> Control </title>" +
                 "<script type='text/javascript'>" +
                 "function myclick(action){var myRequest = new XMLHttpRequest();" + 
-                "myRequest.open(\"GET\", \"http://192.168.1.199/\"+action, true);" + 
+                "myRequest.open(\"GET\", \"/\"+action, true);" + 
                 "myRequest.send();};" +
                 "</script></head><body><form>" +
                 "<input type='button' value='left' onclick=\"myclick('left');\">" +
