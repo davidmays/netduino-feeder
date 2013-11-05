@@ -37,7 +37,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RequestLine.cs" />
-    <Compile Include="Servo.cs" />
     <Compile Include="RadioShackMicroServo.cs" />
     <Compile Include="WebServer.cs" />
   </ItemGroup>
