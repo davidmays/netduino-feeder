@@ -39,7 +39,7 @@ namespace NetduinoFeeder
                 servo.Center();
                 Thread.Sleep(1000);
 
-                var server = new WebServer(80, servo, buzzer);
+                var server = new WebServer(80, servo, buzzer, new FeederTrainingBeep(buzzer));
                 server.Wait();
 
                 ShutdownBlink();

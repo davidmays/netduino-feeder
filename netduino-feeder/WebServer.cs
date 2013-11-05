@@ -19,11 +19,13 @@ namespace NetduinoFeeder
         private RadioShackMicroServo _servo;
         private bool _waiting = true;
         private Buzzer _buzzer;
+        private FeederTrainingBeep _training;
 
-        public WebServer(int port, RadioShackMicroServo servo, Buzzer buzzer)
+        public WebServer(int port, RadioShackMicroServo servo, Buzzer buzzer, FeederTrainingBeep training)
         {
             _servo = servo;
             _buzzer = buzzer;
+            _training = training;
 
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _socket.Bind(new IPEndPoint(IPAddress.Any, port));
@@ -96,6 +98,9 @@ namespace NetduinoFeeder
                 case "/":
                     SendIndex(client);
                     break;
+                case "/train":
+                    TrainingBeep();
+                    break;
                 case "/beep":
                     Beep();
                     SendOK(client, "beep");
@@ -123,6 +128,11 @@ namespace NetduinoFeeder
                     SendError(client, "bad query:" + query);
                     break;
             }
+        }
+
+        private void TrainingBeep()
+        {
+            _training.Beep();
         }
 
         private void Beep()
