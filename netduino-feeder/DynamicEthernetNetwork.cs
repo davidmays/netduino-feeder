@@ -7,7 +7,7 @@ namespace NetduinoFeeder
     {
         Microsoft.SPOT.Net.NetworkInformation.NetworkInterface _ethernet = null;
 
-        public DynamicEthernetNetwork(string ipaddress, string netmask, string gateway)
+        public DynamicEthernetNetwork()
         {
             _ethernet = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
             if (_ethernet == null)
