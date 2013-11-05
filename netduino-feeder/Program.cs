@@ -24,7 +24,7 @@ namespace NetduinoFeeder
 
             try
             {
-                var network = new EthernetNetwork();
+                var network = new StaticEthernetNetwork("192.168.1.199","255.255.255.0","192.168.1.1");
 
                 var buzzer = new Buzzer(Pins.GPIO_PIN_D6);
                 buzzer.Buzz(150,1000);

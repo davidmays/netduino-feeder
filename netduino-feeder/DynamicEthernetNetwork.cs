@@ -1,29 +1,19 @@
 using System;
 using Microsoft.SPOT;
-using Microsoft.SPOT.Net;
-using System.Net;
 
 namespace NetduinoFeeder
 {
-    class EthernetNetwork
+    class DynamicEthernetNetwork
     {
         Microsoft.SPOT.Net.NetworkInformation.NetworkInterface _ethernet = null;
 
-        public EthernetNetwork()
+        public DynamicEthernetNetwork(string ipaddress, string netmask, string gateway)
         {
             _ethernet = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
-            Init();
-        }
-
-
-        private void Init() 
-        {
             if (_ethernet == null)
                 throw new NullReferenceException();
 
-            
-            _ethernet.EnableStaticIP("192.168.1.199", "255.255.255.0", "192.168.1.1");
+            _ethernet.EnableDhcp();
         }
-
     }
 }
