@@ -11,9 +11,11 @@ namespace NetduinoFeeder
     {
         private readonly PWM servo;
         private static uint FiftyHertz = 20000;
-        private static uint PositionFullLeft = 500;
-        private static uint PositionFullRight = 2000;
-        private static uint PositionCenter = 1250;
+        public static uint PositionFullLeft = 500;
+        public static uint PositionHalfLeft = 875;
+        public static uint PositionCenter = 1250;
+        public static uint PositionHalfRight = 1625;
+        public static uint PositionFullRight = 2000;
 
         private bool sweeping;
 
@@ -49,14 +51,19 @@ namespace NetduinoFeeder
             Center();
         }
 
+        public void MoveTo(uint position)
+        {
+            servo.SetPulse(FiftyHertz,position);
+        }
+
         public void Left()
         {
-            servo.SetPulse(FiftyHertz, PositionFullLeft);
+            MoveTo(PositionFullLeft);
         }
 
         public void Center()
         {
-            servo.SetPulse(FiftyHertz, PositionCenter);
+            MoveTo(PositionCenter);
         }
 
         public void Release() 
@@ -66,7 +73,7 @@ namespace NetduinoFeeder
         
         public void Right() 
         {
-            servo.SetPulse(FiftyHertz, PositionFullRight);
+            MoveTo(PositionFullRight);
         }
 
         public void SweepLoop() 

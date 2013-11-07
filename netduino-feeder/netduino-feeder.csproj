@@ -33,6 +33,7 @@
     <Compile Include="Blinker.cs" />
     <Compile Include="Buzzer.cs" />
     <Compile Include="DynamicEthernetNetwork.cs" />
+    <Compile Include="Feeder.cs" />
     <Compile Include="FeederTrainingBeep.cs" />
     <Compile Include="StaticEthernetNetwork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

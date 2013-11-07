@@ -20,12 +20,14 @@ namespace NetduinoFeeder
         private bool _waiting = true;
         private Buzzer _buzzer;
         private FeederTrainingBeep _training;
+        private Blinker _blinker;
 
-        public WebServer(int port, RadioShackMicroServo servo, Buzzer buzzer, FeederTrainingBeep training)
+        public WebServer(int port, RadioShackMicroServo servo, Buzzer buzzer, FeederTrainingBeep training, Blinker blinker)
         {
             _servo = servo;
             _buzzer = buzzer;
             _training = training;
+            _blinker = blinker;
 
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _socket.Bind(new IPEndPoint(IPAddress.Any, port));
@@ -100,6 +102,11 @@ namespace NetduinoFeeder
                     break;
                 case "/train":
                     TrainingBeep();
+                    SendOK(client, "train");
+                    break;
+                case "/feed":
+                    Feed();
+                    SendOK(client, "fed");
                     break;
                 case "/beep":
                     Beep();
@@ -128,6 +135,12 @@ namespace NetduinoFeeder
                     SendError(client, "bad query:" + query);
                     break;
             }
+        }
+
+        private void Feed()
+        {
+            var feeder = new Feeder(_training, _blinker, _servo);
+            feeder.OpenFeeder();
         }
 
         private void TrainingBeep()
@@ -173,7 +186,7 @@ namespace NetduinoFeeder
         {
             return "<html>" +
                 "<head>" +
-                "<title> Control </title>" +
+                "<title> Feeder Control </title>" +
                 "<script type='text/javascript'>" +
                 "function myclick(action){var myRequest = new XMLHttpRequest();" + 
                 "myRequest.open(\"GET\", \"/\"+action, true);" + 
@@ -184,6 +197,10 @@ namespace NetduinoFeeder
                 "<input type='button' value='right' onclick=\"myclick('right');\">" +
                 "<p>"+
                 "<input type='button' value='beep' onclick=\"myclick('beep');\">" +
+                "<p>" +
+                "<input type='button' value='train' onclick=\"myclick('train');\">" +
+                "<p>" +
+                 "<input type='button' value='feed' onclick=\"myclick('feed');\">" +
                 "<p>" +
                 "<input type='button' value='quit' onclick=\"myclick('quit');\"></form>"+
                 "</body></html>";
